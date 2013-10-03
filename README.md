@@ -1,2 +1,2 @@
-LED (LED（Let’s　Enjoy　Datacity)
+LED (Let’s Enjoy Datacity)
 ===
