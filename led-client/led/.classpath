@@ -5,5 +5,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/Users/homata/workspase/led/led-client/led/libs/jsonic-1.3.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,6 +1,12 @@
 package com.homata.led;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,6 +22,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import android.net.ParseException;
 import android.net.Uri;
@@ -37,6 +46,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import net.arnx.jsonic.JSON;
+//import net.arnx.jsonic.JSONException;
 
 
 /*
@@ -226,6 +238,7 @@ public class MainActivity extends FragmentActivity {
         SC_INTERNAL_SERVER_ERROR	500
         SC_SERVICE_UNAVAILABLE	503
         */
+        /*
         if (httpResponse != null && HttpStatus.SC_OK == status) {
             try {
                 HttpEntity httpEntity = httpResponse.getEntity();
@@ -252,12 +265,65 @@ public class MainActivity extends FragmentActivity {
         } else {
             Log.d("MainActivity", "Status" + status);
         }
+        */
+        /*
+        // http://techbooster.org/android/application/1645/
+        if (HttpStatus.SC_OK == status) {
+            try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                httpResponse.getEntity().writeTo(outputStream);
+                //String data;
+                json = outputStream.toString(); // JSONデータ
+            } catch (Exception e) {
+                  Log.d("JSONSampleActivity", "Error");
+            }
+        } else {
+            Log.d("JSONSampleActivity", "Status" + status);
+            return;
+        }
+        */
+        
+        /**/
+        // http://sakebook.blogspot.jp/2013/10/androidxmljsonjsonic.html
+        // XML to JSON
+        if (HttpStatus.SC_OK == status) {
+            try {
+                HttpEntity httpEntity = httpResponse.getEntity();
+                 String xml = EntityUtils.toString(httpEntity, "UTF-8");
+                 Log.d("convert", "xml= "+ xml);
+                 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+                 Document doc = docBuilder.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
+                 json = JSON.encode(doc);
+                 Log.d("convert", "json= "+ json);
+                 JSONArray jsonArray = null;
+                 jsonArray = new JSONArray(json);
+            } catch (net.arnx.jsonic.JSONException e) {
+                 e.printStackTrace();
+            } catch (ParseException e) {
+                 e.printStackTrace();
+            } catch (IOException e) {
+                 e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                 e.printStackTrace();
+            } catch (SAXException e) {
+                 e.printStackTrace();
+            } catch (Exception e) {
+                  Log.d("JSONSampleActivity", "Error");
+            }
+        } else {
+            Log.d("JSONSampleActivity", "Status" + status);
+            return;
+        }
+        /**/
+        
         httpClient.getConnectionManager().shutdown();
         
         // 表示用のテキストバッファ
         StringBuffer stringBuffer = new StringBuffer();
         
         //  var data = jsondata.dataroot.toiletinformation;
+        /*
         try {
             JSONObject rootObject = new JSONObject(json);
             
@@ -270,6 +336,7 @@ public class MainActivity extends FragmentActivity {
             	//String localname = dataObject[ii].getString("locaname");
                 //Log.d("MainActivity", "localname" + localname);
             }
+            */
             
 /*
             for (int i=0; i<count; i++){
@@ -286,10 +353,12 @@ public class MainActivity extends FragmentActivity {
             	stringBuffer.append(title + "\n");
             }
 */
+        /*
         } catch (JSONException e) {
             // 例外処理
             Log.d("MainActivity", "JSONException Exception");
         	e.printStackTrace();
         }
+        */
     }
 }
