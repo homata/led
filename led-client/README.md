@@ -14,4 +14,15 @@
 * その他[仙台道場ー石巻道場の距離を計算して表示するサンプルアプリです。](https://docs.google.com/document/pub?id=1D16qztwKBLyHOYT2HhinoOCRG6wu2oky-wa0uBcY2NQ)
 
 
+小俣のメモ
+------------
 
+### XML
+
+* [【プログラミング153時間目】JavaでXMLの特定の要素の値を取得する。](http://getpocket.com/a/read/462498072)
+
+### JSON
+
+#### JSONP
+
+* [php-simple-proxy | smellman / nagareyama_sample](https://github.com/smellman/nagareyama_sample)
